@@ -1,0 +1,19 @@
+services:
+  mongoDB:
+    image: mongodb/mongodb-atlas-local
+    hostname: mongodb
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=user
+      - MONGODB_INITDB_ROOT_PASSWORD=pass
+      - MONGODB_INITDB_DATABASE=zenrows-ta-db
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+      - ./mongo-seed:/docker-entrypoint-initdb.d
+    networks:
+      - zenrows-ta-network
+
+networks:
+  zenrows-ta-network:
+    driver: bridge

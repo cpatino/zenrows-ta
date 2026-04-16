@@ -1,0 +1,242 @@
+{
+  "info": {
+    "_postman_id": "4affdd41-5bb0-4d90-8c96-394a6217d990",
+    "name": "Device Profiles",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "8428489"
+  },
+  "item": [
+    {
+      "name": "Create Device Profile",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var response = JSON.parse(responseBody);\r",
+              "postman.setEnvironmentVariable(\"devProId\", response.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "test1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "test1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"deviceType\": \"desktop\",\r\n    \"windowSize\": {\r\n        \"width\": 1920,\r\n        \"height\": 1080\r\n    },\r\n    \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\",\r\n    \"countryCode\": \"US\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/deviceProfiles",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "deviceProfiles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit Device Profile",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "test1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "test1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"deviceType\": \"desktop\",\r\n  \"windowSize\": {\r\n    \"width\": 1280,\r\n    \"height\": 720\r\n  },\r\n  \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\",\r\n  \"countryCode\": \"CO\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/deviceProfiles/{{devProId}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "deviceProfiles",
+            "{{devProId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Device Profile",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "test1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "test1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/deviceProfiles/{{devProId}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "deviceProfiles",
+            "{{devProId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find All Device Profiles",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var response = JSON.parse(responseBody);\r",
+              "postman.setEnvironmentVariable(\"devProId\", response[0].id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "test1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "test1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/deviceProfiles",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "deviceProfiles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find Device Profile By ID",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "test1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "test1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/deviceProfiles/{{devProId}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "deviceProfiles",
+            "{{devProId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find All Templates",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/templates",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "templates"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
