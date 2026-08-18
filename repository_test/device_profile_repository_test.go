@@ -1,10 +1,11 @@
-package repository
+package repository_test
 
 import (
 	"context"
 	"testing"
 
 	"zenrows-ta/model"
+	"zenrows-ta/repository"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -22,7 +23,7 @@ func TestDeviceProfileRepository_InsertAndFindDeviceProfile_Success(t *testing.T
 			mtest.CreateSuccessResponse(bson.E{Key: "insertedId", Value: profileID}),
 		)
 
-		repo := NewDeviceProfileRepository(mt.DB)
+		repo := repository.NewDeviceProfileRepository(mt.DB)
 		profile := model.DeviceProfile{
 			DeviceType:    "desktop",
 			WindowSize:    model.WindowSize{Width: 1920, Height: 1080},
@@ -62,7 +63,7 @@ func TestDeviceProfileRepository_FindDeviceProfiles_Success(t *testing.T) {
 			),
 		)
 
-		repo := NewDeviceProfileRepository(mt.DB)
+		repo := repository.NewDeviceProfileRepository(mt.DB)
 		results, err := repo.FindDeviceProfiles(context.Background(), userID)
 		if err != nil {
 			mt.Fatalf("FindDeviceProfiles returned error: %v", err)
@@ -85,7 +86,7 @@ func TestDeviceProfileRepository_UpdateDeviceProfile_Success(t *testing.T) {
 			mtest.CreateSuccessResponse(bson.E{Key: "modifiedCount", Value: 1}),
 		)
 
-		repo := NewDeviceProfileRepository(mt.DB)
+		repo := repository.NewDeviceProfileRepository(mt.DB)
 		profile := model.DeviceProfile{
 			DeviceType:    "desktop",
 			WindowSize:    model.WindowSize{Width: 1024, Height: 768},
@@ -120,7 +121,7 @@ func TestDeviceProfileRepository_UpdateDeviceProfile_InvalidID(t *testing.T) {
 	defer mt.Close()
 
 	mt.Run("invalid id", func(mt *mtest.T) {
-		repo := NewDeviceProfileRepository(mt.DB)
+		repo := repository.NewDeviceProfileRepository(mt.DB)
 		err := repo.UpdateDeviceProfile(context.Background(), &model.DeviceProfile{ID: "invalid-id"})
 		if err == nil {
 			mt.Fatal("expected error for invalid object ID")
@@ -140,7 +141,7 @@ func TestDeviceProfileRepository_DeleteProfile_Success(t *testing.T) {
 			mtest.CreateSuccessResponse(bson.E{Key: "deletedCount", Value: 1}),
 		)
 
-		repo := NewDeviceProfileRepository(mt.DB)
+		repo := repository.NewDeviceProfileRepository(mt.DB)
 		profile := model.DeviceProfile{
 			DeviceType:    "desktop",
 			WindowSize:    model.WindowSize{Width: 1280, Height: 720},
@@ -165,7 +166,7 @@ func TestDeviceProfileRepository_InsertDeviceProfile_InvalidUserID(t *testing.T)
 	defer mt.Close()
 
 	mt.Run("invalid user id", func(mt *mtest.T) {
-		repo := NewDeviceProfileRepository(mt.DB)
+		repo := repository.NewDeviceProfileRepository(mt.DB)
 		_, err := repo.InsertDeviceProfile(context.Background(), model.DeviceProfile{UserID: "not-an-object-id"})
 		if err == nil {
 			mt.Fatal("expected error when saving profile with invalid user ID")

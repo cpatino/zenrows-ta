@@ -1,9 +1,10 @@
-package repository
+package repository_test
 
 import (
 	"context"
 	"testing"
 	"time"
+	"zenrows-ta/repository"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -29,7 +30,7 @@ func TestUserRepository_FindUser_Success(t *testing.T) {
 			),
 		)
 
-		repo := NewUserRepository(mt.DB)
+		repo := repository.NewUserRepository(mt.DB)
 		got, err := repo.FindUser(context.Background(), "alice", "secret")
 		if err != nil {
 			mt.Fatalf("FindUser returned error: %v", err)
@@ -49,7 +50,7 @@ func TestUserRepository_FindUser_NotFound(t *testing.T) {
 			mtest.CreateCursorResponse(0, "db.users", mtest.FirstBatch),
 		)
 
-		repo := NewUserRepository(mt.DB)
+		repo := repository.NewUserRepository(mt.DB)
 		_, err := repo.FindUser(context.Background(), "alice", "wrong")
 		if err == nil {
 			mt.Fatal("expected not found error")

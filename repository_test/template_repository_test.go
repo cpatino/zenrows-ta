@@ -1,8 +1,9 @@
-package repository
+package repository_test
 
 import (
 	"context"
 	"testing"
+	"zenrows-ta/repository"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -41,7 +42,7 @@ func TestTemplateRepository_FindAllTemplates_Success(t *testing.T) {
 			),
 		)
 
-		repo := NewTemplateRepository(mt.DB)
+		repo := repository.NewTemplateRepository(mt.DB)
 		results, err := repo.FindAllTemplates(context.Background())
 		if err != nil {
 			mt.Fatalf("FindAllTemplates returned error: %v", err)
@@ -61,7 +62,7 @@ func TestTemplateRepository_FindAllTemplates_Error(t *testing.T) {
 			bson.D{{Key: "ok", Value: 0}, {Key: "errmsg", Value: "connection error"}},
 		)
 
-		repo := NewTemplateRepository(mt.DB)
+		repo := repository.NewTemplateRepository(mt.DB)
 		_, err := repo.FindAllTemplates(context.Background())
 		if err == nil {
 			mt.Fatal("expected error in response")
